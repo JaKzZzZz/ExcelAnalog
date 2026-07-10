@@ -22,8 +22,6 @@ class TableController
     {
         $input = json_decode(file_get_contents("php://input"), true);
 
-        var_dump($input);
-
         if (!is_array($input)) {
             throw new RuntimeException("Некорректные данные");
         }
@@ -35,6 +33,12 @@ class TableController
         );
 
         $this->repository->save($table);
+
+        header("Content-Type: application/json");
+
+        echo json_encode([
+        "success" => true
+    ]);
         
     }
 }

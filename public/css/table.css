@@ -50,28 +50,6 @@ body {
     z-index: 10;
 }
 
-#preview-layer {
-    position: absolute;
-    border-collapse: collapse;
-    border-spacing: 0;
-
-    top: 0;
-    left: 0;
-
-    pointer-events: none;
-}
-
-.preview-cell {
-    width: var(--cell-width);
-    height: var(--cell-height);
-    border: 1px solid black;
-    padding-left: 2px;
-    padding-right: 2px;
-    position: absolute;
-    background: rgba(150,150,150,0.4);
-    box-sizing: border-box;
-}
-
 .cell {
     height: var(--cell-height);
     width: var(--cell-width);

@@ -13,8 +13,6 @@ import { state } from "../state.js";
 
 import { saveTable } from "../api/api.js";
 
-import { renderTable } from "../table/renderTable.js";
-
 
 
 const lineX =
@@ -116,8 +114,6 @@ document.addEventListener(
 });
 
 
-
-
 document.addEventListener(
 "mouseup",
 ()=>{
@@ -127,24 +123,21 @@ document.addEventListener(
         return;
 
 
-
     state.rows += resizeState.addRows;
 
     state.columns += resizeState.addColumns;
-
 
 
     lineX.style.display = "none";
     lineY.style.display = "none";
 
 
-
     clearResizeState();
-
-
 
     saveTable();
 
-    renderTable();
+    document.dispatchEvent(
+    new Event("table:changed")
+);
 
 });

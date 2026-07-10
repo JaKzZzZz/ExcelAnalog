@@ -34,3 +34,7 @@ export function setCellValue(row,col,value){
 
 
 }
+
+export function getCellHtmlId(row, col) {
+    return `cell-${row}-${col}`;
+}

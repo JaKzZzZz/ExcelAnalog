@@ -2,7 +2,8 @@ import { state } from "../state.js";
 
 import {
     getCellValue,
-    setCellValue
+    setCellValue,
+    getCellHtmlId
 } from "./cell.js";
 
 
@@ -24,6 +25,27 @@ import {
 
 const tableBody =
     document.getElementById("table-body");
+
+
+tableBody.addEventListener("input", (event) => {
+
+    const cell = event.target;
+
+    if (!cell.classList.contains("cell")) {
+        return;
+    }
+
+    const [, row, col] = cell.id.split("-");
+
+    setCellValue(
+        Number(row),
+        Number(col),
+        cell.textContent
+    );
+
+    saveTableDelayed();
+
+});
 
 
 
@@ -51,7 +73,7 @@ export function renderTable(){
             const cell =
                 document.createElement("td");
 
-
+            cell.id = getCellHtmlId(row, col);
 
             cell.classList.add("cell");
 
@@ -77,25 +99,6 @@ export function renderTable(){
 
             cell.textContent =
                 getDisplayValue(row,col);
-
-
-
-            cell.addEventListener(
-            "input",
-            ()=>{
-
-
-                setCellValue(
-                    row,
-                    col,
-                    cell.textContent
-                );
-
-
-                saveTableDelayed();
-
-
-            });
 
 
 

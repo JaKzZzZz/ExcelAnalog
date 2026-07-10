@@ -39,7 +39,7 @@ class JsonTableRepository implements TableRepositoryInterface
 
         $jsonString = json_encode($dataArray, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
-        $result = file_put_contents($this->filePath, $jsonString);
+        $result = file_put_contents($this->filePath, $jsonString, LOCK_EX);
         if ($result === false) {
             throw new RuntimeException("Не удалось сохранить JSON");
         }
