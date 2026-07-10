@@ -1,0 +1,106 @@
+#spreadsheet {
+    border-collapse: collapse;
+    border-spacing: 0;
+    position: relative;
+
+    border: 1px solid rgb(44, 44, 44);
+    background-color: rgb(236, 236, 236);
+}
+
+:root {
+    --cell-width: 30px;
+    --cell-height: 30px;
+}
+
+.table-wrapper {
+    position: relative;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#resize-line-x {
+
+    position: absolute;
+
+    width: 2px;
+    height: 100%;
+
+    background: gray;
+
+    display: none;
+
+    z-index: 10;
+}
+
+
+#resize-line-y {
+
+    position: absolute;
+
+    width: 100%;
+    height: 2px;
+
+    background: gray;
+
+    display: none;
+
+    z-index: 10;
+}
+
+#preview-layer {
+    position: absolute;
+    border-collapse: collapse;
+    border-spacing: 0;
+
+    top: 0;
+    left: 0;
+
+    pointer-events: none;
+}
+
+.preview-cell {
+    width: var(--cell-width);
+    height: var(--cell-height);
+    border: 1px solid black;
+    padding-left: 2px;
+    padding-right: 2px;
+    position: absolute;
+    background: rgba(150,150,150,0.4);
+    box-sizing: border-box;
+}
+
+.cell {
+    height: var(--cell-height);
+    width: var(--cell-width);
+    border: 1px solid black;
+    padding-left: 2px;
+    padding-right: 2px;
+    position: relative;
+    font-family: Calibri;
+    box-sizing: border-box;
+}
+
+.header-cell {
+    text-align: center;
+    background-color: rgb(24, 15, 15);
+    color: white;
+    font-weight: bold;
+}
+
+.resize-handle {
+
+    position: absolute;
+
+    width: 8px;
+    height: 8px;
+
+    right: -4px;
+    bottom: -4px;
+
+    background: black;
+
+    cursor: se-resize;
+}
