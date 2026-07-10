@@ -53,3 +53,15 @@ export async function saveTable() {
 
 
 }
+
+let saveTimeout = null;
+
+export function saveTableDelayed() {
+
+    clearTimeout(saveTimeout);
+
+    saveTimeout = setTimeout(() => {
+        saveTable();
+    }, 500);
+
+}

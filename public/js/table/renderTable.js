@@ -17,7 +17,7 @@ import {
 
 
 import {
-    saveTable
+    saveTableDelayed
 } from "../api/api.js";
 
 
@@ -92,7 +92,7 @@ export function renderTable(){
                 );
 
 
-                saveTable();
+                saveTableDelayed();
 
 
             });
