@@ -38,7 +38,7 @@ class JsonTableRepository implements TableRepositoryInterface
     throw new RuntimeException("Не удалось прочитать JSON");
 }
 
-        TableValidator::validateData($dataArray);
+        TableValidator::validateTable($dataArray);
 
         return new Table(
             $dataArray["rows"],
@@ -61,5 +61,30 @@ class JsonTableRepository implements TableRepositoryInterface
         if ($result === false) {
             throw new RuntimeException("Не удалось сохранить JSON");
         }
+    }
+    public function updateCell(string $key, string $value): void
+    {
+
+        $data = json_decode(
+            file_get_contents($this->filePath),
+            true
+        );
+
+
+        if ($value === "") {
+
+            unset($data["cells"][$key]);
+
+        } else {
+
+            $data["cells"][$key] = $value;
+
+        }
+
+
+        file_put_contents(
+            $this->filePath,
+            json_encode($data, JSON_PRETTY_PRINT)
+        );
     }
 }

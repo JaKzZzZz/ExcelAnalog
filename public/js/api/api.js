@@ -130,6 +130,76 @@ export async function saveTable() {
     }
 
 }
+export async function updateCell(row, col, value) {
+
+    try {
+
+        const response =
+            await fetch(API_URL, {
+
+
+                method:"PATCH",
+
+
+                headers:{
+                    "Content-Type":"application/json"
+                },
+
+
+                body: JSON.stringify({
+                    row,
+                    col,
+                    value
+                })
+
+
+            });
+
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                `Ошибка обновления: ${response.status}`
+            );
+
+        }
+
+        const data =
+            await response.json();
+
+
+        if(!data.success){
+
+            throw new Error(
+                "Сервер не подтвердил обновление"
+            );
+
+        }
+
+        showStatus(
+        "Обновление прошло успешно",
+        "success")
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Ошибка при обновлении таблицы:",
+            error
+        );
+
+        showStatus(
+        "Не удалось обновить таблицу",
+        "error"
+    );
+
+
+    }
+
+}
 
 
 
@@ -138,14 +208,14 @@ export async function saveTable() {
 let saveTimeout = null;
 
 
-export function saveTableDelayed() {
+export function updateCellDelayed(row, col, value) {
 
     clearTimeout(saveTimeout);
 
 
     saveTimeout = setTimeout(async () => {
 
-        saveTable();
+        updateCell(row, col, value);
 
     }, 300);
 

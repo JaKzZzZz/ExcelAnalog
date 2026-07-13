@@ -31,6 +31,10 @@ try {
             $controller->save();
             break;
 
+        case "PATCH":
+            $controller->update();
+            break;
+
         default:
 
             http_response_code(405);
@@ -42,12 +46,8 @@ try {
 
     http_response_code(500);
 
-
     echo json_encode([
-        "error" => "Внутренняя ошибка сервера"
+        "error" => $e->getMessage()
     ]);
-
-
-    error_log($e->getMessage());
 
 }

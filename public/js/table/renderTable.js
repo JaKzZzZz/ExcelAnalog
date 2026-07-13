@@ -18,7 +18,7 @@ import {
 
 
 import {
-    saveTableDelayed
+    updateCellDelayed
 } from "../api/api.js";
 
 
@@ -43,7 +43,11 @@ tableBody.addEventListener("input", (event) => {
         cell.textContent
     );
 
-    saveTableDelayed();
+    updateCellDelayed(
+        Number(row),
+        Number(col),
+        cell.textContent
+    );
 
 });
 

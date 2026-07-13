@@ -8,6 +8,7 @@ use Jakzz\ExcelAnalog\Validators\TableValidator;
 
 use RuntimeException;
 
+header("Content-Type: application/json");
 
 class TableController
 {
@@ -20,23 +21,19 @@ class TableController
 
     public function load(): void
     {
-        header("Content-Type: application/json");
-
         $table = $this->repository->load();
 
         echo json_encode($table);
     }
     public function save(): void
     {
-        header("Content-Type: application/json");
-
         $input = json_decode(file_get_contents("php://input"), true, 512, JSON_THROW_ON_ERROR);
 
         if (!is_array($input)) {
             throw new RuntimeException("Некорректные данные");
         }
 
-        TableValidator::validateData($input);
+        TableValidator::validateTable($input);
 
         $table = new Table(
             $input["rows"],
@@ -51,4 +48,36 @@ class TableController
     ]);
         
     }
+    public function update(): void
+{
+
+    $input = json_decode(
+        file_get_contents("php://input"),
+        true
+    );
+
+
+    if (!is_array($input)) {
+
+        throw new RuntimeException("Некорректные данные");
+
+    }
+
+
+    TableValidator::validateData($input);
+
+
+    $key = $input["row"] . "-" . $input["col"];
+
+
+    $this->repository->updateCell(
+        $key,
+        $input["value"]
+    );
+
+
+    echo json_encode([
+        "success" => true
+    ]);
+}
 }
