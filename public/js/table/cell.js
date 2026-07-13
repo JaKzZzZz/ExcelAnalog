@@ -25,12 +25,18 @@ export function getCellValue(row,col){
 export function setCellValue(row,col,value){
 
 
-    const key =
-        getCellKey(row,col);
+    const key = getCellKey(row, col);
 
 
+    if (value.trim() === "") {
 
-    state.cells[key] = value;
+        delete state.cells[key];
+
+    } else {
+
+        state.cells[key] = value;
+
+    }
 
 
 }

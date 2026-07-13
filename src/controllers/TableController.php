@@ -7,8 +7,6 @@ use Jakzz\ExcelAnalog\Models\Table;
 
 use RuntimeException;
 
-require_once __DIR__ . '/../../vendor/autoload.php';
-
 
 class TableController
 {
@@ -21,13 +19,17 @@ class TableController
 
     public function load(): void
     {
+        header("Content-Type: application/json");
+
         $table = $this->repository->load();
 
         echo json_encode($table);
     }
     public function save(): void
     {
-        $input = json_decode(file_get_contents("php://input"), true);
+        header("Content-Type: application/json");
+
+        $input = json_decode(file_get_contents("php://input"), true, 512, JSON_THROW_ON_ERROR);
 
         if (!is_array($input)) {
             throw new RuntimeException("Некорректные данные");
@@ -40,8 +42,6 @@ class TableController
         );
 
         $this->repository->save($table);
-
-        header("Content-Type: application/json");
 
         echo json_encode([
         "success" => true

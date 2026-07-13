@@ -2,9 +2,6 @@
 
 namespace Jakzz\ExcelAnalog\Api;
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 define('PROJECT_ROOT', dirname(__DIR__, 2));
 
 require_once __DIR__ . '/../../vendor/autoload.php';
@@ -12,26 +9,45 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 use Jakzz\ExcelAnalog\Controllers\TableController;
 use Jakzz\ExcelAnalog\Repositories\JsonTableRepository;
 
+use Throwable;
 
-$repository = new JsonTableRepository(
-    PROJECT_ROOT . "/storage/data.json"
-);
+header("Content-Type: application/json; charset=utf-8");
 
-$controller = new TableController($repository);
+try {
 
-switch ($_SERVER["REQUEST_METHOD"]) {
+    $repository = new JsonTableRepository(
+        PROJECT_ROOT . "/storage/data.json"
+    );
 
-    case "GET":
-        $controller->load();
-        break;
+    $controller = new TableController($repository);
 
-    case "POST":
-        $controller->save();
-        break;
+    switch ($_SERVER["REQUEST_METHOD"]) {
 
-    default:
+        case "GET":
+            $controller->load();
+            break;
 
-        http_response_code(405);
+        case "POST":
+            $controller->save();
+            break;
 
-        echo "Метод не поддерживается";
+        default:
+
+            http_response_code(405);
+
+            echo "Метод не поддерживается";
 }   
+} catch (Throwable $e) {
+
+
+    http_response_code(500);
+
+
+    echo json_encode([
+        "error" => "Внутренняя ошибка сервера"
+    ]);
+
+
+    error_log($e->getMessage());
+
+}

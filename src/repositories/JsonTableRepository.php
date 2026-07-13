@@ -7,8 +7,6 @@ use Jakzz\ExcelAnalog\Models\Table;
 use RuntimeException;
 use InvalidArgumentException;
 
-require_once __DIR__ . '/../../vendor/autoload.php';
-
 
 class JsonTableRepository implements TableRepositoryInterface
 {
