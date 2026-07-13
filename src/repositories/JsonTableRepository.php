@@ -1,18 +1,39 @@
 <?php
 
-require_once __DIR__ . '/../models/Table.php';
+namespace Jakzz\ExcelAnalog\Repositories;
+
+use Jakzz\ExcelAnalog\Models\Table;
+
+use RuntimeException;
+use InvalidArgumentException;
+
+require_once __DIR__ . '/../../vendor/autoload.php';
+
 
 class JsonTableRepository implements TableRepositoryInterface
 {
     private string $filePath;
 
-    public function __construct()
+    public function __construct(string $filePath)
     {
-    $this->filePath = __DIR__ . "/../../storage/data.json";
+        $this->filePath = $filePath;
     }
 
     public function load(): Table
     {
+        if (!file_exists($this->filePath)) {
+
+        $defaultTable = new Table(
+            1,
+            1,
+            []
+        );
+
+        $this->save($defaultTable);
+
+        return $defaultTable;
+    }
+    
         $jsonString = file_get_contents($this->filePath);
         $dataArray = json_decode($jsonString, true);
 

@@ -1,12 +1,14 @@
 import { state } from "../state.js";
 
+const API_URL = "/public/api/table.php";
+
 
 export async function loadTable() {
 
     try {
 
         const response =
-            await fetch("/public/api/table.php");
+            await fetch(API_URL);
 
 
         if (!response.ok) {
@@ -62,7 +64,7 @@ export async function saveTable() {
     try {
 
         const response =
-            await fetch("/public/api/table.php", {
+            await fetch(API_URL, {
 
 
                 method:"POST",

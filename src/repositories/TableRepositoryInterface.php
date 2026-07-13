@@ -1,5 +1,9 @@
 <?php
 
+namespace Jakzz\ExcelAnalog\Repositories;
+
+use Jakzz\ExcelAnalog\Models\Table;
+
 
 interface TableRepositoryInterface
 {

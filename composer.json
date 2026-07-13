@@ -1,0 +1,10 @@
+{
+    "name": "jakzz/excel-analog",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Jakzz\\ExcelAnalog\\": "src/"
+        }
+    },
+    "require": {}
+}

@@ -1,5 +1,7 @@
 <?php
 
+namespace Jakzz\ExcelAnalog\Models;
+
 class Table
 {
     public int $rows;

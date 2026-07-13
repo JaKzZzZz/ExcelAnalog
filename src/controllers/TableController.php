@@ -1,7 +1,14 @@
 <?php
 
-require_once __DIR__ . '/../repositories/TableRepositoryInterface.php';
-require_once __DIR__ . "/../repositories/JsonTableRepository.php";
+namespace Jakzz\ExcelAnalog\Controllers;
+
+use Jakzz\ExcelAnalog\Repositories\TableRepositoryInterface; 
+use Jakzz\ExcelAnalog\Models\Table;
+
+use RuntimeException;
+
+require_once __DIR__ . '/../../vendor/autoload.php';
+
 
 class TableController
 {
