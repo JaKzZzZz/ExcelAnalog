@@ -2,6 +2,8 @@ import {
     setResizeState
 } from "./resizeState.js";
 
+import { state } from "../state.js";
+
 
 const lineX = document.getElementById("resize-line-x");
 const lineY = document.getElementById("resize-line-y");
@@ -42,8 +44,11 @@ export function addResizeHandle(td) {
                 startX: rect.left,
                 startY: rect.top,
 
-                addRows:0,
-                addColumns:0
+                startRows: state.rows,
+                startColumns: state.columns,
+
+                addRows: 0,
+                addColumns: 0
 
             });
 

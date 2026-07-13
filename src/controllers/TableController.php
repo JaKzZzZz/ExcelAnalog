@@ -4,6 +4,7 @@ namespace Jakzz\ExcelAnalog\Controllers;
 
 use Jakzz\ExcelAnalog\Repositories\TableRepositoryInterface; 
 use Jakzz\ExcelAnalog\Models\Table;
+use Jakzz\ExcelAnalog\Validators\TableValidator;
 
 use RuntimeException;
 
@@ -34,6 +35,8 @@ class TableController
         if (!is_array($input)) {
             throw new RuntimeException("Некорректные данные");
         }
+
+        TableValidator::validateData($input);
 
         $table = new Table(
             $input["rows"],

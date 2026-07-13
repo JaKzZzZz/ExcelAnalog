@@ -3,10 +3,9 @@
 namespace Jakzz\ExcelAnalog\Repositories;
 
 use Jakzz\ExcelAnalog\Models\Table;
+use Jakzz\ExcelAnalog\Validators\TableValidator;
 
 use RuntimeException;
-use InvalidArgumentException;
-
 
 class JsonTableRepository implements TableRepositoryInterface
 {
@@ -39,7 +38,7 @@ class JsonTableRepository implements TableRepositoryInterface
     throw new RuntimeException("Не удалось прочитать JSON");
 }
 
-        $this->validateData($dataArray);
+        TableValidator::validateData($dataArray);
 
         return new Table(
             $dataArray["rows"],
@@ -61,21 +60,6 @@ class JsonTableRepository implements TableRepositoryInterface
         $result = file_put_contents($this->filePath, $jsonString, LOCK_EX);
         if ($result === false) {
             throw new RuntimeException("Не удалось сохранить JSON");
-        }
-    }
-
-    private function validateData(array $data): void
-    {
-        if (!isset($data["rows"]) || !is_int($data["rows"])) {
-            throw new InvalidArgumentException("Невалидное значение rows");
-        }
-
-        if (!isset($data["columns"]) || !is_int($data["columns"])) {
-            throw new InvalidArgumentException("Невалидное значение columns");
-        }
-
-        if (!isset($data["cells"]) || !is_array($data["cells"])) {
-            throw new InvalidArgumentException("Невалидное значение cells");
         }
     }
 }

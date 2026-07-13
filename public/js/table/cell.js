@@ -44,3 +44,21 @@ export function setCellValue(row,col,value){
 export function getCellHtmlId(row, col) {
     return `cell-${row}-${col}`;
 }
+
+export function removeOutOfBoundsCells() {
+
+    for (const key in state.cells) {
+
+        const [row, col] = key.split("-");
+
+
+        if (
+            Number(row) > state.rows ||
+            Number(col) > state.columns
+        ) {
+
+            delete state.cells[key];
+
+        }
+    }
+}

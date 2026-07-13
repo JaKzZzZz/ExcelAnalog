@@ -82,3 +82,47 @@ body {
 
     cursor: se-resize;
 }
+
+#status {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+
+    padding: 10px 16px;
+
+    border-radius: 6px;
+
+    font-size: 14px;
+
+    background: white;
+
+    opacity: 0;
+
+    transition: opacity 0.3s ease;
+
+    pointer-events: none;
+
+    z-index: 1000;
+}
+
+
+#status.success {
+    opacity: 1;
+
+    color: #155724;
+
+    background: #d4edda;
+
+    border: 1px solid #c3e6cb;
+}
+
+
+#status.error {
+    opacity: 1;
+
+    color: #721c24;
+
+    background: #f8d7da;
+
+    border: 1px solid #f5c6cb;
+}

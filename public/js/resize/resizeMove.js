@@ -8,6 +8,9 @@ import {
     getCellSize
 } from "./resizeUtils.js";
 
+import {
+    removeOutOfBoundsCells
+} from "../table/cell.js";
 
 import { state } from "../state.js";
 
@@ -91,24 +94,14 @@ document.addEventListener(
 
 
 
-    resizeState.addColumns =
-        Math.max(
-            0,
-            Math.floor(
-                deltaX /
-                cellSize.width
-            )
-        );
+    resizeState.addColumns = Math.floor(
+    deltaX / cellSize.width
+    );
 
 
-    resizeState.addRows =
-        Math.max(
-            0,
-            Math.floor(
-                deltaY /
-                cellSize.height
-            )
-        );
+    resizeState.addRows = Math.floor(
+        deltaY / cellSize.height
+    );
 
 
 });
@@ -123,18 +116,26 @@ document.addEventListener(
         return;
 
 
-    state.rows += resizeState.addRows;
+    state.rows = Math.max(
+    1,
+    resizeState.startRows + resizeState.addRows
+    );
 
-    state.columns += resizeState.addColumns;
+
+    state.columns = Math.max(
+        1,
+        resizeState.startColumns + resizeState.addColumns
+    );
 
 
     lineX.style.display = "none";
     lineY.style.display = "none";
 
-
-    clearResizeState();
+    removeOutOfBoundsCells();
 
     saveTable();
+
+    clearResizeState();
 
     document.dispatchEvent(
     new Event("table:changed")

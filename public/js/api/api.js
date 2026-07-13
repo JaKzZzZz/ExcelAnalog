@@ -1,5 +1,7 @@
 import { state } from "../state.js";
 
+import { showStatus } from "../ui/status.js";
+
 const API_URL = "/public/api/table.php";
 
 
@@ -49,6 +51,9 @@ export async function loadTable() {
             error
         );
 
+        showStatus(
+        "Не удалось загрузить таблицу",
+        "error");
 
         throw error;
     }
@@ -102,6 +107,10 @@ export async function saveTable() {
 
         }
 
+        showStatus(
+        "Сохранение прошло успешно",
+        "success")
+
 
     }
 
@@ -111,6 +120,12 @@ export async function saveTable() {
             "Ошибка при сохранении таблицы:",
             error
         );
+
+        showStatus(
+        "Не удалось сохранить таблицу",
+        "error"
+    );
+
 
     }
 

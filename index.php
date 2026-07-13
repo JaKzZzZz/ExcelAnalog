@@ -15,6 +15,8 @@
 
 <div class="table-wrapper">
 
+    <div id="status"></div>
+
     <table id="spreadsheet">
         <tbody id="table-body"></tbody>
     </table>
