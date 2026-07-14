@@ -8,8 +8,6 @@ use Jakzz\ExcelAnalog\Validators\TableValidator;
 
 use RuntimeException;
 
-header("Content-Type: application/json");
-
 class TableController
 {
     private TableRepositoryInterface $repository;

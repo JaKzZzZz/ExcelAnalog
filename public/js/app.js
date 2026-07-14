@@ -1,4 +1,4 @@
-import { loadTable } from "./api/api.js";
+import { loadTable } from "./network/api.js";
 
 import {
     renderTable

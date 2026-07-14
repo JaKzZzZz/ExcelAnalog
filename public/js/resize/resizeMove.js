@@ -14,7 +14,7 @@ import {
 
 import { state } from "../state.js";
 
-import { saveTable } from "../api/api.js";
+import { saveTable } from "../network/api.js";
 
 
 

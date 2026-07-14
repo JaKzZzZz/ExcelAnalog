@@ -39,8 +39,16 @@ try {
 
             http_response_code(405);
 
-            echo "Метод не поддерживается";
-}   
+            header(
+                "Allow: GET, POST, PATCH"
+            );
+
+            echo json_encode([
+                "error" => "Метод не поддерживается"
+            ]);
+
+            break;
+        }   
 } catch (Throwable $e) {
 
 

@@ -19,7 +19,7 @@ import {
 
 import {
     updateCellDelayed
-} from "../api/api.js";
+} from "../network/api.js";
 
 
 

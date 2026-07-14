@@ -64,11 +64,23 @@ class JsonTableRepository implements TableRepositoryInterface
     }
     public function updateCell(string $key, string $value): void
     {
+            $fp = fopen($this->filePath, "c+");
 
-        $data = json_decode(
-            file_get_contents($this->filePath),
-            true
-        );
+        if (!$fp) {
+            throw new RuntimeException("Не удалось открыть файл");
+        }
+
+        flock($fp, LOCK_EX);
+
+        $contents = stream_get_contents($fp);
+
+        $data = $contents
+        ? json_decode($contents, true)
+        : [
+            "rows" => 1,
+            "columns" => 1,
+            "cells" => []
+        ];
 
 
         if ($value === "") {
@@ -81,10 +93,21 @@ class JsonTableRepository implements TableRepositoryInterface
 
         }
 
+        rewind($fp);
+        ftruncate($fp, 0);
 
-        file_put_contents(
-            $this->filePath,
-            json_encode($data, JSON_PRETTY_PRINT)
+
+        fwrite(
+        $fp,
+        json_encode(
+            $data,
+            JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)
         );
+
+        fflush($fp);
+
+        flock($fp, LOCK_UN);
+
+        fclose($fp);
     }
 }

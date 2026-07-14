@@ -2,7 +2,9 @@ import { state } from "../state.js";
 
 import { showStatus } from "../ui/status.js";
 
-const API_URL = "/public/api/table.php";
+const API_URL = document
+    .querySelector('meta[name="api-url"]')
+    .content;
 
 
 export async function loadTable() {
@@ -154,6 +156,8 @@ export async function updateCell(row, col, value) {
 
 
             });
+
+        
 
 
 
